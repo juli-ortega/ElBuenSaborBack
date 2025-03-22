@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.relational.core.mapping.Table;
-
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -16,6 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -24,6 +23,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Product {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,11 +37,11 @@ public class Product {
     private List<String> images = new ArrayList<>();
 
     @CreatedDate
+    @Column(nullable = false, updatable = false)  // Asegúrate de que la fecha de creación no se actualice
     private Date created_at;
 
-    @UpdateTimestamp
+    @LastModifiedDate  // Usamos @LastModifiedDate en lugar de @UpdateTimestamp
     private Date updated_at;
 
     private Date deleted_at;
-
 }
