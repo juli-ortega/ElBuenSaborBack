@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.buensabor.backend.Orders.Entity.Order;
 import com.buensabor.backend.Orders.Entity.Dto.OrderDto;
 import com.buensabor.backend.Orders.EnumOrder.OrderStatus;
 
@@ -30,7 +29,9 @@ public class OrderController {
     @GetMapping("")
     public ResponseEntity<?> getOrders() {
         try {
-            return ResponseEntity.ok().body("Nice");
+            List<OrderDto> orders = orderService.getAllOrders();
+
+            return ResponseEntity.ok().body(orders);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -39,7 +40,11 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getOrder(@RequestParam Long id) {
         try {
-            return ResponseEntity.ok().body("Nice");
+
+            OrderDto order = orderService.getOrderById(id);
+
+            return ResponseEntity.ok().body(order);
+
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -49,7 +54,7 @@ public class OrderController {
     public ResponseEntity<?> getOrderByStatus(@RequestParam(required = false) OrderStatus status){
         try {
 
-            List<Order> orders = orderService.getOrdersByStatus(status);
+            List<OrderDto> orders = orderService.getOrdersByStatus(status);
 
             return ResponseEntity.ok().body(orders);
 
@@ -61,8 +66,8 @@ public class OrderController {
     @PostMapping("")
     public ResponseEntity<?> createOrder(@RequestBody OrderDto orderDto) {
         try {
-            //orderService.createOrder(orderDto);
-            return ResponseEntity.ok().body("Nice");
+            OrderDto order = orderService.createOrder(orderDto);
+            return ResponseEntity.ok().body(order);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -78,9 +83,12 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOrder(@RequestBody ResponseEntity<?> entity) {
+    public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok().body("Nice");
+
+            orderService.deleteOrder(id);
+
+            return ResponseEntity.ok().body("Order deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
