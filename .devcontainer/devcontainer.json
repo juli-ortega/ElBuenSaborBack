@@ -1,5 +1,3 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/java-postgres
 {
 	"name": "Java & PostgreSQL",
 	"dockerComposeFile": "docker-compose.yml",
@@ -14,7 +12,7 @@
 				"vscjava.vscode-spring-initializr"
 			]
 		}
-	}
+	},  // 🔹 Agregamos esta coma
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {}
