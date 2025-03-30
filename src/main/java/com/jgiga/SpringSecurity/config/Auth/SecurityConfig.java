@@ -32,10 +32,10 @@ public class SecurityConfig {
 
     @Autowired
     private JwtFilter jwtFilter;
-    
+
     @Autowired
     private CustomOAuth2UserService oauth2UserService;
-    
+
     @Autowired
     private OAuth2SuccessHandler oauth2SuccessHandler;
 
@@ -46,16 +46,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/oauth2/**").permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo
-                                .userService(oauth2UserService)
-                        )
-                        .successHandler(oauth2SuccessHandler)
-                )
+                                .userService(oauth2UserService))
+                        .successHandler(oauth2SuccessHandler))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

@@ -1,7 +1,5 @@
 package com.jgiga.SpringSecurity.controllers;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

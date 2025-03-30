@@ -26,6 +26,11 @@ public class UserService {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     public String register(Users user) {
+
+        if (user.getUsername() == null || user.getUsername().isEmpty() ||
+                user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new RuntimeException("username or password not provided");
+        }
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new RuntimeException("User already registered");
         }
