@@ -42,6 +42,10 @@ public class UserService {
     }
 
     public String verify(Users user) {
+        if (user.getUsername() == null || user.getUsername().isEmpty() ||
+                user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new RuntimeException("username or password not provided");
+        }
         try {
             Authentication authentication = authManager
                     .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
